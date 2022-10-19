@@ -1,0 +1,9 @@
+div.goal {
+    background-color: blueviolet;
+    color: beige;
+    padding: 10px;
+}
+
+.btnComplete {
+    position: relative;
+}
