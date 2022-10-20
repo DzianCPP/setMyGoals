@@ -25,13 +25,16 @@
             <input type="checkbox" id="complete" name="complete" value="1" /><br />
             <button type="submit">Submit Goal</button>
         </form>
+
+
+
+
         <?php
         require_once 'connect.php';
         $sql = "SELECT * FROM goals";
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-        print("<h2>Incomplete Goals</h2>");
 
-        //Incomplete Goals
+        print("<h2>Incomplete Goals</h2>");
         while ($row = mysqli_fetch_array($result)) {
             if ($row['goal_complete'] == 0) {
                 if ($row['goal_category'] == 0) {
@@ -47,7 +50,7 @@
                 echo "</div>";
             }
         }
-        //Complete Goals
+
         print("<h2>Complete Goals</h2>");
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));
         while ($row = mysqli_fetch_array($result)) {
@@ -66,6 +69,10 @@
             }
         }
         ?>
+
+
+
+
     </div>
 </body>
 
