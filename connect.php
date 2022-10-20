@@ -4,13 +4,9 @@ $user = "joe";
 $db = "goals";
 $host = "localhost";
 $port = 3306;
+$pass = "!LoveMyLilBirdy1";
+$conn = new mysqli($host, $user, $pass, $db, $port);
 
-$link = mysqli_init();
-$success = mysqli_real_connect(
-    $link,
-    $host,
-    $user,
-    "!LoveMyLilBirdy1",
-    $db,
-    $port
-);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}

@@ -3,7 +3,7 @@ include "connect.php";
 print("<h2>Incomplete Goals</h2>");
 
 $sql = "SELECT * FROM goals";
-$result = mysqli_query($link, $sql) or die(mysqli_error($link));
+$result = $conn->query($sql) or die(mysqli_error($link));
 
 while ($row = mysqli_fetch_array($result)) {
     if ($row['goal_complete'] == 0) {
@@ -24,7 +24,7 @@ while ($row = mysqli_fetch_array($result)) {
 
 print("<h2>Complete Goals");
 
-$result = mysqli_query($link, $sql) or die(mysqli_errno($link));
+$result = $conn->query($sql) or die(mysqli_errno($link));
 while ($row = mysqli_fetch_array($result)) {
     if ($row['goal_complete'] != 0) {
         if ($row['goal_category'] == 0) {
@@ -40,3 +40,5 @@ while ($row = mysqli_fetch_array($result)) {
         echo ("</div>");
     }
 }
+
+$conn->close();

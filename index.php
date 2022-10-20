@@ -10,7 +10,7 @@
 <body>
     <div id="container">
         <h1>New Goal</h1>
-        <form accept="insert_goal.php" method="post">
+        <form action="insert_goal.php" method="post">
             <label for="category">Category</label>
             <select name="category" id="selectCategory">
                 <option value="0">Personal</option>
@@ -26,7 +26,7 @@
             <input type="submit" id="submitGoal" value="Submit Goal" />
         </form>
 
-        <?php require_once "dynamicPartOfPage.php"; ?>
+        <?php require "dynamicPartOfPage.php"; ?>
     </div>
 </body>
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once "connect.php";
+require "connect.php";
 
 $category = $_REQUEST['category'];
 $text = $_REQUEST['goalTextArea'];
@@ -11,16 +11,14 @@ if ($complete == '' || $complete == null) {
     $complete = 0;
 }
 
-$sql = "INSERT INTO goals (goal_category, goal_text, goal_date, goal_complete)";
-$sql .= "('" . $category . "',";
-$sql .= "'" . $text . "',";
-$sql .= "'" . $date . "',";
-$sql .= "'" . $complete . "')";
+$sql = "INSERT INTO goals (goal_category, goal_text, goal_date, goal_complete) VALUES ($category, $text, $date, $complete)";
 
-if (mysqli_query($link, $sql)) {
-    print("Stored");
+if ($conn->query($sql) === true) {
+    echo ("Stored");
 } else {
-    print("Failed");
+    echo ("Failed");
 }
+
+$conn->close();
 
 echo ("<script>location.href='index.php'</script>");
