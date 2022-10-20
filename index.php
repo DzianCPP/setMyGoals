@@ -3,30 +3,69 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Goal Tracker</title>
     <link rel="stylesheet" href="style.css">
+    <title>Goal Tracker</title>
 </head>
 
 <body>
     <div id="container">
         <h1>New Goal</h1>
         <form action="insert_goal.php" method="post">
-            <label for="category">Category</label>
-            <select name="category" id="selectCategory">
+            <label for="cat">Category</label>
+            <select name="cat" id="cat">
                 <option value="0">Personal</option>
-                <option value="1">Career</option>
-                <option value="2">Hobby</option>
+                <option value="1">Professional</option>
+                <option value="2">Other</option>
             </select><br>
-            <label for="goalTextArea">Goal</label>
-            <textarea name="goalTextArea" id="goalTextArea"></textarea><br>
-            <label for="goalDate">Date</label>
-            <input type="date" id="goalDate" name="goalDate" /><br>
-            <label for="completeGoalCheckbox">Goal Completed</label><br>
-            <input type="checkbox" name="completedGoalCheckbox" id="completedGoalCheckbox" /><br>
-            <input type="submit" id="submitGoal" value="Submit Goal" />
+            <label for="text">Goal</label>
+            <textarea name="text" id="text"></textarea><br>
+            <label for="goaldate">Date</label>
+            <input type="date" id="goaldate" name="goaldate" /><br>
+            <label for="complete">Goal Completed</label>
+            <input type="checkbox" id="complete" name="complete" value="1" /><br />
+            <button type="submit">Submit Goal</button>
         </form>
+        <?php
+        require_once 'connect.php';
+        $sql = "SELECT * FROM goals";
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+        print("<h2>Incomplete Goals</h2>");
 
-        <?php require "dynamicPartOfPage.php"; ?>
+        //Incomplete Goals
+        while ($row = mysqli_fetch_array($result)) {
+            if ($row['goal_complete'] == 0) {
+                if ($row['goal_category'] == 0) {
+                    $cat = "Personal";
+                } elseif ($row['goal_category' == 1]) {
+                    $cat = "Professional";
+                } else {
+                    $cat = "Other";
+                }
+                echo "<div class='goal'>";
+                echo "<a href='complete.php?id=" . $row['goal_id'] . "'><button class='btnComplete'>Complete</button></a><strong>";
+                echo  $cat . "</strong><p>" . $row['goal_text'] . "</p>Goal Date: " . $row['goal_date'];
+                echo "</div>";
+            }
+        }
+        //Complete Goals
+        print("<h2>Complete Goals</h2>");
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+        while ($row = mysqli_fetch_array($result)) {
+            if ($row['goal_complete'] != 0) {
+                if ($row['goal_category'] == 0) {
+                    $cat = "Personal";
+                } elseif ($row['goal_category' == 1]) {
+                    $cat = "Professional";
+                } else {
+                    $cat = "Other";
+                }
+                echo "<div class='goal'>";
+                echo "<a href='delete.php?id=" . $row['goal_id'] . "'><button class='btnDelete'>Delete</button></a><strong>";
+                echo  $cat . "</strong><p>" . $row['goal_text'] . "</p>Goal Date: " . $row['goal_date'];
+                echo "</div>";
+            }
+        }
+        ?>
     </div>
 </body>
 

@@ -1,24 +1,27 @@
 <?php
+require_once 'connect.php';
 
-require "connect.php";
+$category = $_REQUEST['cat'];
+$text = $_REQUEST['text'];
+$date = $_REQUEST['goaldate'];
+$complete = $_REQUEST['complete'];
 
-$category = $_REQUEST['category'];
-$text = $_REQUEST['goalTextArea'];
-$date = $_REQUEST['goalDate'];
-$complete = $_REQUEST['completedGoalCheckbox'];
-
-if ($complete == '' || $complete == null) {
-    $complete = 0;
+if ($complete == '' || $complete == null){
+  $complete = 0;
 }
 
-$sql = "INSERT INTO goals (goal_category, goal_text, goal_date, goal_complete) VALUES ($category, $text, $date, $complete)";
+$sql = "INSERT INTO goals (goal_category, goal_text, goal_date, goal_complete) VALUES ";
+$sql .= "('" . $category . "',";
+$sql .= "'" . $text . "',";
+$sql .=  "'" . $date . "',";
+$sql .= "'" .$complete . "')";
 
-if ($conn->query($sql) === true) {
-    echo ("Stored");
+
+//print $sql;
+if(mysqli_query($link, $sql)){
+  print ("Stored");
 } else {
-    echo ("Failed");
+  print("Failed");
 }
 
-$conn->close();
-
-echo ("<script>location.href='index.php'</script>");
+echo "<script>location.href='index.php'</script>";
